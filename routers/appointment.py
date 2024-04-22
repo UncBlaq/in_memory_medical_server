@@ -35,29 +35,25 @@ def get_appointment_by_id(id : int):
 @router.put("/process_appointments/{id}", status_code=status.HTTP_202_ACCEPTED)
 def process_appointments(appointment_id : Annotated[int, Depends(AppointmentService.does_appointments_exist)]):
     #If an Appointment is already processed, then the appointed doctor will be free again
-    doctor_values = list(doctors.values())
-
-    #Status changes to completed
-    for appointment in appointments:
-                if appointment.id == appointment_id:
+        doctor_values = list(doctors.values())
+        for appointment in appointments:
+            if appointment.id == appointment_id:
                     #Sets appointed doctor back to Available
-                    for doctor in doctor_values:
-                          if doctor == appointment.doctor:
+                for doctor in doctor_values:
+                        if doctor == appointment.doctor:
                                 doctor.is_available = True
-
                 #checks if appointment was already cancelled
-                    if appointment.status == AppointmentStatus.canceled.value:
+                if appointment.status == AppointmentStatus.canceled.value:
                         return {
-                      "message": "This appointment was already canceled hence cannot be processed"
-                         }
+                        "message": "This appointment was already canceled hence cannot be processed"
+                             }
+                else:
                      #Else Process the appointment and set to completed
-                    
                     appointment.status = AppointmentStatus.completed.value
-
                     return {
                     "message" : "Appointment Processed Successfully"
                     } 
-
+                
 @router.put("/cancel_appointment/{id}", status_code=status.HTTP_202_ACCEPTED)
 def cancel_appointment(appointment_id : Annotated [int, Depends(AppointmentService.does_appointments_exist)]):
         #If an appointment is cancelled, the appointed doctor gets to be available again
@@ -68,10 +64,8 @@ def cancel_appointment(appointment_id : Annotated [int, Depends(AppointmentServi
                 for doctor in doctors_values:  
                     if doctor == appointment.doctor:
                       doctor.is_available = True
-       
                      # Checks If appointment with provided id was already processed
-                if appointment.status == AppointmentStatus.completed.value:
-                            
+                if appointment.status == AppointmentStatus.completed.value:  
                         return {
                       "message": "This appointment was already processed hence cannot be cancelled"
                  }
