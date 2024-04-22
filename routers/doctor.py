@@ -55,9 +55,7 @@ def delete_doctor(doctor_id : int):
         for appointment in appointments:
             if appointment.doctor == curr_doctor:
                 appointment.status = AppointmentStatus.canceled.value
-            # curr_patient = appointment.patient
 
-            
     del doctors[doctor_id]
     #Response not shown in response header as status is set to no content for delete operation
 

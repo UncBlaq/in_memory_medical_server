@@ -45,11 +45,11 @@ def edit_patient(patient_id : int, payload : PatientCreate):
 @router.delete("/delete/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_patient(patient_id : int):
     curr_patient = PatientService.fetch_patient_by_id(patient_id)
-   
 #if a patient with active  Appointment is deleted from the database, the said patient appointment's is cancelled 
     for appointment in appointments:
         if appointment.patient == curr_patient:
-            appointment.status = AppointmentStatus.canceled.value
+            break
+        appointment.status = AppointmentStatus.canceled.value
 
 #And the doctor assigned to that appointment is available again
         appointed_doctor = appointment.doctor

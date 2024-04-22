@@ -72,7 +72,7 @@ def cancel_appointment(appointment_id : Annotated [int, Depends(AppointmentServi
                      # Checks If appointment with provided id was already processed
                 if appointment.status == AppointmentStatus.completed.value:
                             
-                            return {
+                        return {
                       "message": "This appointment was already processed hence cannot be cancelled"
                  }
                      #sets appointment to canceled
