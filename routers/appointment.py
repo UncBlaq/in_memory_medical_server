@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status
 
 from services.appointment import AppointmentService
 from schemas.appointment import AppointmentCreate, appointments, AppointmentStatus
