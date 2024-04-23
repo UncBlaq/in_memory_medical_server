@@ -56,12 +56,7 @@ def process_appointments(appointment_id : Annotated[int, Depends(AppointmentServ
         return {
         "message": "Appointment Processed Successfully"
         }
-<<<<<<< HEAD
-     
-=======
 
->>>>>>> fbda3fc581fb8d8d9feaf9d7b31f097aaf40fcc1
-                
 @router.put("/cancel_appointment/{id}", status_code=status.HTTP_202_ACCEPTED)
 def cancel_appointment(appointment_id : Annotated [int, Depends(AppointmentService.does_appointments_exist)]):
         #If an appointment is cancelled, the appointed doctor gets to be available again
